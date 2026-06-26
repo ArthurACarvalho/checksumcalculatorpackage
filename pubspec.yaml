@@ -1,0 +1,15 @@
+name: checksumcalculator
+version: 0.0.0
+description: Um package criado para facilidar o calculo do checksum com máscara 0FF
+repository: https://github.com/ArthurACarvalho/checksumcalculatorpackage.git
+
+topics:
+ - checksum
+ - hexadecimal
+
+environment:
+  sdk: ^3.136.1
+
+dependencies:
+
+dev_dependencies:
