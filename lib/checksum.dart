@@ -1,1 +1,1 @@
-export lib/src/checksum.dart;
+export src/checksum.dart;
