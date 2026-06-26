@@ -8,7 +8,7 @@ topics:
  - hexadecimal
 
 environment:
-  sdk: ^3.136.1
+  sdk: flutter
 
 dependencies:
 
