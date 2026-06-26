@@ -1,5 +1,4 @@
 library checksumcalculator;
-export src/checksum.dart;
 
 /* void main() {
   try {
