@@ -1,42 +1,43 @@
 library checksumcalculator;
 
 List<String> separadorDeBytes({required String comando}) {
-  final List<String> paresBytes = [];
+  List<String> paresBytes = [];
 
-  if (comando.length % 2 != 0) {
-    throw Exception("Tamanho dos bytes incorreto\r\n404");
-  }
-
-  for (int i = 0; i < comando.length; i += 2) {
-    paresBytes.add(comando.substring(i, i + 2));
+  try {
+    int tamanho = comando.length;
+    if (tamanho % 2 != 0) {
+      throw Exception("Tamanho dos bytes incorreto\r\n404");
+    }
+    for (int i = 0; i < tamanho; i++) {
+      if (comando.length > 0) {
+        String firstByte = comando.substring(0, 2);
+        paresBytes.add(firstByte);
+        comando = comando.replaceFirst(firstByte, "");
+      }
+    }
+  } catch (e) {
+    rethrow;
   }
 
   return paresBytes;
 }
 
-int somaDaListaParesBytes({required List<String> paresBytes}) {
-  final List<int> listaDecimais = paresBytes
-      .map((byte) => int.parse(byte, radix: 16))
-      .toList();
-
-  final int total = listaDecimais.fold(
-    0,
-    (acumulador, decimal) => acumulador + decimal,
-  );
-
+int somaDaListaParesBytes({required List<String> paresBytes}){
+  List<int> listaDecimais = [];
+  for(int i = 0; i < paresBytes.length; i++){
+    int decimal = int.parse(paresBytes[i], radix: 16);
+    listaDecimais.add(decimal);
+  }
+  int total = listaDecimais.fold(0, (acumulador, decimal) => acumulador + decimal);  
   return total;
 }
 
-int complementoDeDois({required int soma}) {
-  final int resultadoComplemento = ~soma + 1;
+int complementoDeDois({required int soma}){
+  int resultadoComplemento = ~soma + 1;
   return resultadoComplemento;
 }
 
-String calcularChecksum({required int resultadoComplemento}) {
-  final String checksum = (resultadoComplemento & 0xFF)
-      .toRadixString(16)
-      .padLeft(2, '0')
-      .toUpperCase();
-
-  return checksum;
+String calcularChecksum({required int resultadoComplemento}){
+  String checksum = (resultadoComplemento & 0xFF).toRadixString(16);
+  return checksum.toUpperCase();
 }
